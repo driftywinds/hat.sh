@@ -1,18 +1,23 @@
-import { Chip } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { currentVersion } from "../config/Constants";
+import { makeStyles } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
 
-const StyledChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  fontSize: "0.75rem",
-  height: "20px",
-  "& .MuiChip-label": {
-    padding: "0 8px",
+const useStyles = makeStyles((theme) => ({
+  chip: {
+    backgroundColor: theme.palette.gallery.main,
+    color: theme.palette.mountainMist.main,
+    borderRadius: ".25rem",
+    padding: "none",
+    marginLeft: 15,
+    marginBottom: 10,
   },
 }));
 
-const VersionBadge = ({ version }) => {
-  return <StyledChip label={`v${version}`} size="small" />;
+const VersionBadge = () => {
+  const classes = useStyles();
+  return (
+    <Chip className={classes.chip} label={"v" + currentVersion} size="small" />
+  );
 };
 
 export default VersionBadge;
