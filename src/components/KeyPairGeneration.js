@@ -57,8 +57,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.hawkesBlue.main,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
   alertContainer: {
     padding: theme.spacing(3),

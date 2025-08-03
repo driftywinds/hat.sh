@@ -86,8 +86,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.mercury.main,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   browseButton: {
@@ -102,8 +101,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.alto.main,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   resetButton: {
@@ -119,8 +117,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.flower.light,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   backButton: {
@@ -170,8 +167,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 15,
     textTransform: "none",
     color: theme.palette.cottonBoll.text,
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   filesPaper: {

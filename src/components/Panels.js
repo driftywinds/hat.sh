@@ -20,7 +20,7 @@ const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: "none",
     padding: "8px",
-    transition: "background-color 0.2s ease-out",
+    transition: "background-color 0.2s ease-out, color 0.01s",
 
     "&$selected": {
       backgroundColor: theme.palette.white.main,

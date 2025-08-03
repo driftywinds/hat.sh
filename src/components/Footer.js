@@ -57,8 +57,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.alto.main,
       boxShadow: "none",
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   monIcon: {

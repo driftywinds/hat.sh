@@ -89,8 +89,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.mercury.main,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   browseButton: {
@@ -105,8 +104,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.alto.main,
     },
-    transition: "background-color 0.2s ease-out",
-    transition: "color .01s",
+    transition: "background-color 0.2s ease-out, color 0.01s",
   },
 
   backButton: {

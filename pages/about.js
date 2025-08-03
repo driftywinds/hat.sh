@@ -3,8 +3,9 @@
 import fs from "fs";
 import path from "path";
 import { marked } from "marked";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, useMemo } from "react";
 import PropTypes from "prop-types";
+import dynamic from "next/dynamic";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -23,7 +24,7 @@ import Link from "next/link";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import Footer from "../src/components/Footer";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import StarsIcon from "@material-ui/icons/Stars";
 import GetAppIcon from "@material-ui/icons/GetApp";
@@ -39,17 +40,20 @@ import { ThemeProvider } from "@material-ui/styles";
 import { Theme, checkTheme } from "../src/config/Theme";
 import locales from "../locales/locales";
 import { getTranslations as t } from "../locales";
-const drawerWidth = 240;
 
-marked.setOptions({
-  highlight: function (code, lang) {
-    if (prism.languages[lang]) {
-      return prism.highlight(code, prism.languages[lang], lang);
-    } else {
-      return code;
-    }
-  },
+// Lazy load components for better performance
+const Footer = dynamic(() => import("../src/components/Footer"), {
+  loading: () => <CircularProgress />,
+  ssr: false,
 });
+
+// Lazy load marked for better performance
+const MarkdownRenderer = dynamic(() => import("../src/components/MarkdownRenderer"), {
+  loading: () => <CircularProgress />,
+  ssr: true,
+});
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -223,6 +227,12 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  loadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '200px',
+  },
 }));
 
 export default function About(props) {
@@ -273,6 +283,16 @@ export default function About(props) {
 
     getContent();
   }, [props.docs]);
+
+  // Memoize the parsed content to avoid re-parsing
+  const parsedContent = useMemo(() => {
+    if (!docContent) return "";
+    return marked(docContent);
+  }, [docContent]);
+
+  const parsedChangelog = useMemo(() => {
+    return marked(props.changelog);
+  }, [props.changelog]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -398,14 +418,18 @@ export default function About(props) {
           <Container maxWidth="lg">
             <div className={classes.toolbar} />
 
-            <div dangerouslySetInnerHTML={{ __html: marked(docContent) }}></div>
-            <div
-              dangerouslySetInnerHTML={{ __html: marked(props.changelog) }}
-            ></div>
+            <Suspense fallback={<div className={classes.loadingContainer}><CircularProgress /></div>}>
+              <div dangerouslySetInnerHTML={{ __html: parsedContent }}></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: parsedChangelog }}
+              ></div>
+            </Suspense>
           </Container>
         </main>
 
-        <Footer />
+        <Suspense fallback={<div className={classes.loadingContainer}><CircularProgress /></div>}>
+          <Footer />
+        </Suspense>
       </div>
     </ThemeProvider>
   );
