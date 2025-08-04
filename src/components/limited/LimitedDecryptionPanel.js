@@ -389,12 +389,19 @@ const LimitedDecryptionPanel = () => {
         let decLimitedTestsalt = new Uint8Array(limitedTestSalt);
         let decLimitedTestheader = new Uint8Array(limitedTestHeader);
 
+        // Adaptive security parameters with fallback for mobile
+        let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+        let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+        
+        // Mobile devices should always use INTERACTIVE parameters
+        // This ensures compatibility and performance on limited devices
+
         let decLimitedTestKey = sodium.crypto_pwhash(
           sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
           limitedTestPassword,
           decLimitedTestsalt,
-          sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-          sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+          opsLimit,
+          memLimit,
           sodium.crypto_pwhash_ALG_ARGON2ID13
         );
 
@@ -536,12 +543,19 @@ const LimitedDecryptionPanel = () => {
     let limitedDecSalt = new Uint8Array(salt);
     let limitedDecHeader = new Uint8Array(header);
 
+    // Adaptive security parameters with fallback for mobile
+    let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+    let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+    
+    // Mobile devices should always use INTERACTIVE parameters
+    // This ensures compatibility and performance on limited devices
+
     let limitedDecKey = sodium.crypto_pwhash(
       sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
       password,
       limitedDecSalt,
-      sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-      sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+      opsLimit,
+      memLimit,
       sodium.crypto_pwhash_ALG_ARGON2ID13
     );
 

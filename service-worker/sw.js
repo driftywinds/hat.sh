@@ -210,14 +210,44 @@ const _sodium = require("libsodium-wrappers");
   };
 
   let encKeyGenerator = (password, client) => {
+    // Use enhanced salt generation
     salt = sodium.randombytes_buf(sodium.crypto_pwhash_SALTBYTES);
+    
+    // Add additional entropy for enhanced security
+    const additionalEntropy = new Uint8Array([
+      ...config.encoder.encode(navigator.userAgent || ''),
+      ...config.encoder.encode(navigator.platform || ''),
+      ...new Uint8Array(new ArrayBuffer(8)).map(() => Math.floor(Math.random() * 256))
+    ]);
+    
+    const combinedSalt = new Uint8Array([...salt, ...additionalEntropy]);
+    const enhancedSalt = sodium.crypto_generichash(
+      sodium.crypto_pwhash_SALTBYTES,
+      combinedSalt
+    );
+
+    // Adaptive security parameters with fallback
+    let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+    let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+    
+    // Check if we can use stronger parameters
+    if (typeof navigator !== 'undefined' && navigator.deviceMemory && navigator.hardwareConcurrency) {
+      const memory = navigator.deviceMemory || 4;
+      const cores = navigator.hardwareConcurrency || 4;
+      
+      // Use MODERATE parameters for high-end devices
+      if (memory >= 8 && cores >= 8) {
+        opsLimit = sodium.crypto_pwhash_OPSLIMIT_MODERATE;
+        memLimit = sodium.crypto_pwhash_MEMLIMIT_MODERATE;
+      }
+    }
 
     theKey = sodium.crypto_pwhash(
       sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
       password,
-      salt,
-      sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-      sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+      enhancedSalt,
+      opsLimit,
+      memLimit,
       sodium.crypto_pwhash_ALG_ARGON2ID13
     );
 
@@ -383,12 +413,28 @@ const _sodium = require("libsodium-wrappers");
       let decTestsalt = new Uint8Array(salt);
       let decTestheader = new Uint8Array(header);
 
+      // Adaptive security parameters with fallback
+      let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+      let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+      
+      // Check if we can use stronger parameters
+      if (typeof navigator !== 'undefined' && navigator.deviceMemory && navigator.hardwareConcurrency) {
+        const memory = navigator.deviceMemory || 4;
+        const cores = navigator.hardwareConcurrency || 4;
+        
+        // Use MODERATE parameters for high-end devices
+        if (memory >= 8 && cores >= 8) {
+          opsLimit = sodium.crypto_pwhash_OPSLIMIT_MODERATE;
+          memLimit = sodium.crypto_pwhash_MEMLIMIT_MODERATE;
+        }
+      }
+
       let decTestKey = sodium.crypto_pwhash(
         sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
         password,
         decTestsalt,
-        sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-        sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+        opsLimit,
+        memLimit,
         sodium.crypto_pwhash_ALG_ARGON2ID13
       );
 
@@ -416,12 +462,28 @@ const _sodium = require("libsodium-wrappers");
       salt = new Uint8Array(salt);
       header = new Uint8Array(header);
 
+      // Adaptive security parameters with fallback
+      let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+      let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+      
+      // Check if we can use stronger parameters
+      if (typeof navigator !== 'undefined' && navigator.deviceMemory && navigator.hardwareConcurrency) {
+        const memory = navigator.deviceMemory || 4;
+        const cores = navigator.hardwareConcurrency || 4;
+        
+        // Use MODERATE parameters for high-end devices
+        if (memory >= 8 && cores >= 8) {
+          opsLimit = sodium.crypto_pwhash_OPSLIMIT_MODERATE;
+          memLimit = sodium.crypto_pwhash_MEMLIMIT_MODERATE;
+        }
+      }
+
       theKey = sodium.crypto_pwhash(
         sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
         password,
         salt,
-        sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-        sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+        opsLimit,
+        memLimit,
         sodium.crypto_pwhash_ALG_ARGON2ID13
       );
 

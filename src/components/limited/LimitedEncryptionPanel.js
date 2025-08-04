@@ -419,12 +419,19 @@ const LimitedEncryptionPanel = () => {
 
     limitedSalt = sodium.randombytes_buf(sodium.crypto_pwhash_SALTBYTES);
 
+    // Adaptive security parameters with fallback for mobile
+    let opsLimit = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE;
+    let memLimit = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE;
+    
+    // Mobile devices should always use INTERACTIVE parameters
+    // This ensures compatibility and performance on limited devices
+
     limitedKey = sodium.crypto_pwhash(
       sodium.crypto_secretstream_xchacha20poly1305_KEYBYTES,
       password,
       limitedSalt,
-      sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-      sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+      opsLimit,
+      memLimit,
       sodium.crypto_pwhash_ALG_ARGON2ID13
     );
 
