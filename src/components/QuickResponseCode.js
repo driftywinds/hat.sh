@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { IconButton, Tooltip, Button, TextField } from "@material-ui/core";
 import { getTranslations as t } from "../../locales";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-let QRCode = require("qrcode.react");
+import QRCode from "qrcode.react";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -32,8 +32,10 @@ const QuickResponseCode = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  let url =
-    window.location.origin + "/?tab=encryption&publicKey=" + props.publicKey;
+  let url = "";
+  if (typeof window !== "undefined") {
+    url = window.location.origin + "/?tab=encryption&publicKey=" + props.publicKey;
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -131,7 +133,25 @@ const QuickResponseCode = (props) => {
                     <Tooltip title={t("copy_link")} placement="left">
                       <IconButton
                         onClick={() => {
-                          navigator.clipboard.writeText(url);
+                          try {
+                            if (navigator.clipboard && window.isSecureContext) {
+                              navigator.clipboard.writeText(url);
+                            } else {
+                              // Fallback für ältere Browser oder nicht-secure Kontext
+                              const textArea = document.createElement("textarea");
+                              textArea.value = url;
+                              textArea.style.position = "fixed";
+                              textArea.style.left = "-999999px";
+                              textArea.style.top = "-999999px";
+                              document.body.appendChild(textArea);
+                              textArea.focus();
+                              textArea.select();
+                              document.execCommand('copy');
+                              document.body.removeChild(textArea);
+                            }
+                          } catch (err) {
+                            console.error('Copy failed:', err);
+                          }
                         }}
                       >
                         <FileCopyIcon />

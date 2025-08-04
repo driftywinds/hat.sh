@@ -1066,11 +1066,29 @@ const LimitedEncryptionPanel = () => {
             {encryptionMethod === "secretKey" && (
               <Grid item xs={12} sm={6}>
                 <Button
-                  onClick={() => {
-                    navigator.clipboard.writeText(Password);
-                    setSnackBarMessage(t("password_copied"));
-                    showSnackBar();
-                  }}
+                                      onClick={() => {
+                      try {
+                        if (navigator.clipboard && window.isSecureContext) {
+                          navigator.clipboard.writeText(Password);
+                        } else {
+                          // Fallback für ältere Browser oder nicht-secure Kontext
+                          const textArea = document.createElement("textarea");
+                          textArea.value = Password;
+                          textArea.style.position = "fixed";
+                          textArea.style.left = "-999999px";
+                          textArea.style.top = "-999999px";
+                          document.body.appendChild(textArea);
+                          textArea.focus();
+                          textArea.select();
+                          document.execCommand('copy');
+                          document.body.removeChild(textArea);
+                        }
+                        setSnackBarMessage(t("password_copied"));
+                        showSnackBar();
+                      } catch (err) {
+                        console.error('Copy failed:', err);
+                      }
+                    }}
                   className={classes.button}
                   startIcon={<FileCopyIcon />}
                   fullWidth
@@ -1130,13 +1148,31 @@ const LimitedEncryptionPanel = () => {
                     <>
                       <Tooltip title={t("copy_link")} placement="left">
                         <IconButton
-                          onClick={() => {
-                            navigator.clipboard.writeText(shareableLink);
-                            setSnackBarMessage(
-                              t("create_shareable_link_copied")
-                            );
-                            showSnackBar();
-                          }}
+                                                      onClick={() => {
+                              try {
+                                if (navigator.clipboard && window.isSecureContext) {
+                                  navigator.clipboard.writeText(shareableLink);
+                                } else {
+                                  // Fallback für ältere Browser oder nicht-secure Kontext
+                                  const textArea = document.createElement("textarea");
+                                  textArea.value = shareableLink;
+                                  textArea.style.position = "fixed";
+                                  textArea.style.left = "-999999px";
+                                  textArea.style.top = "-999999px";
+                                  document.body.appendChild(textArea);
+                                  textArea.focus();
+                                  textArea.select();
+                                  document.execCommand('copy');
+                                  document.body.removeChild(textArea);
+                                }
+                                setSnackBarMessage(
+                                  t("create_shareable_link_copied")
+                                );
+                                showSnackBar();
+                              } catch (err) {
+                                console.error('Copy failed:', err);
+                              }
+                            }}
                         >
                           <FileCopyIcon />
                         </IconButton>
