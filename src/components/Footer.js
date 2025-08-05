@@ -101,7 +101,7 @@ export default function Footer() {
     {
       type: "monero",
       alt: "xmr",
-      addr: "84zQq4Xt7sq8cmGryuvWsXFMDvBvHjWjnMQXZWQQRXjB1TgoZWS9zBdNcYL7CRbQBqcDdxr4RtcvCgApmQcU6SemVXd7RuG",
+      addr: "44uSqDb3TJajGzcKADn6xwjmDhU6xXeKAFcKAujUodboYE9bWaHN1awDCfcz65DaidVng7dtGcffbPFgqKrdy1EiKxRcXzf",
     },
     {
       type: "bitcoin",
@@ -111,7 +111,7 @@ export default function Footer() {
     {
       type: "ethereum",
       alt: "eth",
-      addr: "0xF6F204B044CC73Fa90d7A7e4C5EC2947b83b917e",
+      addr: "0x5Bf70670Ca8A4907Fb2EA8C98Af0e50e5aBC7968",
     },
   ];
 
@@ -158,14 +158,14 @@ export default function Footer() {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">
-            Built and developed by{" "}
+            Furtherdeveloped by{" "}
             <Link
-              href="https://github.com/sh-dv"
+              href="https://github.com/airbauer"
               target="_blank"
               rel="noopener"
               color="inherit"
             >
-              {"sh-dv"}
+              {"AIRbauer"}
             </Link>
           </Typography>
 
@@ -202,7 +202,7 @@ export default function Footer() {
             <DialogContent>
               <Hidden xsDown>
                 <DialogContentText style={{ textAlign: "center" }}>
-                  Hat.sh is an open-source application. The project is
+                  Hat.vik.lol is an open-source application. The project is
                   maintained in my free time. Donations of any size are
                   appreciated.
                 </DialogContentText>
@@ -294,7 +294,7 @@ export default function Footer() {
             <DialogActions>
               <Button
                 style={{ marginBottom: 1 }}
-                href="https://ko-fi.com/shdvapps"
+                href="https://ko-fi.com/airbauer"
                 target="_blank"
               >
                 <img

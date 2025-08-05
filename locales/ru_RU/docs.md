@@ -55,7 +55,7 @@ Hat.sh это свободное [opensource] веб-приложение, ко�
 1. клонируйте репозиторий на гитхабе
 
 ```bash
-git clone https://github.com/sh-dv/hat.sh.git hat.sh
+git clone https://github.com/airbauer/hat.sh.git hat.sh
 ```
 
 2. перейдите в папку
@@ -122,7 +122,7 @@ docker run -d -p 3991:80 shdv/hat.sh
 1. клонируйте репозиторий на гитхабе
 
 ```bash
-git clone https://github.com/sh-dv/hat.sh.git hat.sh
+git clone https://github.com/airbauer/hat.sh.git hat.sh
 ```
 
 2. перейдите в папку
@@ -150,7 +150,7 @@ docker run -d -p 3991:80 shdv/hat.sh
 1. клонируйте репозиторий на гитхабе
 
 ```bash
-git clone https://github.com/sh-dv/hat.sh.git hat.sh
+git clone https://github.com/airbauer/hat.sh.git hat.sh
 ```
 
 2. перейдите в папку
@@ -308,7 +308,7 @@ hat.sh также доступно в виде образа Docker. Вы мож�
 
 ### Бесплатен ли hat.sh?
 
-Да, Hat.sh бесплатен и всегда будет таким. Впрочем, пожалуйста, задумайтесь о том, чтобы внести [небольшой взнос](https://github.com/sh-dv/hat.sh#donations) для поддержки проекта.
+Да, Hat.sh бесплатен и всегда будет таким. Впрочем, пожалуйста, задумайтесь о том, чтобы внести [небольшой взнос](https://github.com/airbauer/hat.sh#donations) для поддержки проекта.
 
 <hr style="height: 1px">
 
@@ -374,7 +374,7 @@ Hat.sh использует аутентифицированное шифров�
 
 ### Как я могу внести свой вклад?
 
-Hat.sh это приложение с открытым исходным кодом. Вы можете помочь сделать его лучше, сделав коммиты на GitHub. Проект поддерживается в мое свободное время. [Пожертвования](https://github.com/sh-dv/hat.sh#donations) любого размера приветствуются.
+Hat.sh это приложение с открытым исходным кодом. Вы можете помочь сделать его лучше, сделав коммиты на GitHub. Проект поддерживается в мое свободное время. [Пожертвования](https://github.com/airbauer/hat.sh#donations) любого размера приветствуются.
 
 <hr style="height: 1px">
 
@@ -626,11 +626,11 @@ XChaCha20 не требует никаких таблиц поиска и поз
 [xchacha20-poly1305]: https://libsodium.gitbook.io/doc/secret-key_cryptography/aead/chacha20-poly1305/xchacha20-poly1305_construction
 [argon2id]: https://github.com/p-h-c/phc-winner-argon2
 [x25519]: https://cr.yp.to/ecdh.html
-[opensource]: https://github.com/sh-dv/hat.sh
+[opensource]: https://github.com/airbauer/hat.sh
 [bitwarden]: https://bitwarden.com/
 [extending the salsa20 nonce paper]: https://cr.yp.to/snuffle/xsalsa-20081128.pdf
 [soon]: https://tools.ietf.org/html/draft-irtf-cfrg-xchacha
-[github]: https://github.com/sh-dv/hat.sh
+[github]: https://github.com/airbauer/hat.sh
 [veracrypt]: https://veracrypt.fr
 [cryptomator]: https://cryptomator.org
 [kryptor]: https://github.com/samuel-lucas6/Kryptor

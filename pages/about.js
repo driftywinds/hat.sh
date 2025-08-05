@@ -372,7 +372,7 @@ export default function About(props) {
               </Button>
 
               <IconButton
-                href="https://github.com/sh-dv/hat.sh"
+                href="https://github.com/airbauer/hat.sh"
                 target="_blank"
                 rel="noopener"
               >
