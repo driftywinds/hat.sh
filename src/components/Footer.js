@@ -158,7 +158,7 @@ export default function Footer() {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">
-            Furtherdeveloped by{" "}
+            Hosted by drifty and further developed by{" "}
             <Link
               href="https://github.com/airbauer"
               target="_blank"
